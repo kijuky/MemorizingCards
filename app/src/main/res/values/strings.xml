@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">MemorizingCards</string>
+    <string name="button_start">はじめる</string>
+    <string name="button_card_prev">前の問題</string>
+    <string name="button_card_answer">答えと解説</string>
+    <string name="button_card_next">次の問題</string>
+</resources>
