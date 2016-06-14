@@ -1,4 +1,4 @@
-package kijuky.fm.memorizingcards;
+package kijuky.fmfactory.memorizingcards;
 
 import android.app.Application;
 import android.test.ApplicationTestCase;

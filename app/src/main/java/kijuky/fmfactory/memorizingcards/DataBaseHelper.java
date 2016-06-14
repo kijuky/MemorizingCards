@@ -1,4 +1,4 @@
-package kijuky.fm.memorizingcards;
+package kijuky.fmfactory.memorizingcards;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
@@ -9,7 +9,6 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.nio.channels.Channel;
 
 /**
  * Created by admin on 2016/06/13.

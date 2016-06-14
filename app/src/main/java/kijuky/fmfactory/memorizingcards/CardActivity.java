@@ -1,13 +1,10 @@
-package kijuky.fm.memorizingcards;
+package kijuky.fmfactory.memorizingcards;
 
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.widget.RadioButton;
 import android.widget.TextView;
-
-import java.io.IOException;
 
 public class CardActivity extends AppCompatActivity {
 
