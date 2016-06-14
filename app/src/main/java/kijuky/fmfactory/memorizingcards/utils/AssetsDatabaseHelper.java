@@ -10,16 +10,12 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 
-/**
- * Created by admin on 2016/06/13.
- */
 public class AssetsDatabaseHelper extends SQLiteOpenHelper {
-
     private final Context context;
     private final File path;
     private boolean initialized;
 
-    public AssetsDatabaseHelper(Context context, String databaseName, int databaseVersion) {
+    protected AssetsDatabaseHelper(Context context, String databaseName, int databaseVersion) {
         super(context, databaseName, null, databaseVersion);
         this.context = context;
         this.path = context.getDatabasePath(databaseName);
@@ -66,7 +62,7 @@ public class AssetsDatabaseHelper extends SQLiteOpenHelper {
         // do nothing.
     }
 
-    public interface Process<T> {
+    public interface Handler<T> {
         T process(SQLiteDatabase db);
     }
 }

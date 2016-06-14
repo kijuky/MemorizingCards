@@ -3,9 +3,6 @@ package kijuky.fmfactory.memorizingcards;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
-/**
- * Created by admin on 2016/06/14.
- */
 public class QuestionRecord {
     private static final String TABLE_NAME = "question_t";
     public final int id;

@@ -44,7 +44,7 @@ public class CardActivity extends AppCompatActivity {
     }
 
     private QuestionRecord getQuestionRecord(final int id) {
-        return QuestionAssetsDatabaseHelper.read(this, new AssetsDatabaseHelper.Process<QuestionRecord>() {
+        return QuestionAssetsDatabaseHelper.read(this, new AssetsDatabaseHelper.Handler<QuestionRecord>() {
             @Override
             public QuestionRecord process(SQLiteDatabase db) {
                 return QuestionRecord.get(db, id);
