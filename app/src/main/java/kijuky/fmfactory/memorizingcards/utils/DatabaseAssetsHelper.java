@@ -10,12 +10,12 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 
-public class AssetsDatabaseHelper extends SQLiteOpenHelper {
+public class DatabaseAssetsHelper extends SQLiteOpenHelper {
     private final Context context;
     private final File path;
     private boolean initialized;
 
-    protected AssetsDatabaseHelper(Context context, String databaseName, int databaseVersion) {
+    protected DatabaseAssetsHelper(Context context, String databaseName, int databaseVersion) {
         super(context, databaseName, null, databaseVersion);
         this.context = context;
         this.path = context.getDatabasePath(databaseName);

@@ -6,7 +6,7 @@ import android.os.Bundle;
 import android.widget.RadioButton;
 import android.widget.TextView;
 
-import kijuky.fmfactory.memorizingcards.utils.AssetsDatabaseHelper;
+import kijuky.fmfactory.memorizingcards.utils.DatabaseAssetsHelper;
 
 public class CardActivity extends AppCompatActivity {
     @Override
@@ -44,7 +44,7 @@ public class CardActivity extends AppCompatActivity {
     }
 
     private QuestionRecord getQuestionRecord(final int id) {
-        return QuestionAssetsDatabaseHelper.read(this, new AssetsDatabaseHelper.Handler<QuestionRecord>() {
+        return QuestionDatabaseHelper.read(this, new DatabaseAssetsHelper.Handler<QuestionRecord>() {
             @Override
             public QuestionRecord process(SQLiteDatabase db) {
                 return QuestionRecord.get(db, id);
