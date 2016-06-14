@@ -35,7 +35,7 @@ public class QuestionRecord {
 
     public static QuestionRecord get(SQLiteDatabase db, int id) {
         if (id <= 0) {
-            throw new IndexOutOfBoundsException("require: 1 <= id");
+            throw new IndexOutOfBoundsException("require: 1 <= id; id = " + id);
         }
 
         QuestionRecord q = null;
