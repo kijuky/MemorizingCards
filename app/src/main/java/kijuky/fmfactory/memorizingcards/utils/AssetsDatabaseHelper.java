@@ -1,4 +1,4 @@
-package kijuky.fmfactory.memorizingcards;
+package kijuky.fmfactory.memorizingcards.utils;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
@@ -13,20 +13,16 @@ import java.io.OutputStream;
 /**
  * Created by admin on 2016/06/13.
  */
-public class DataBaseHelper extends SQLiteOpenHelper {
+public class AssetsDatabaseHelper extends SQLiteOpenHelper {
 
-    private static final String DB_FILE_NAME = "question.db";
-    private static final String DB_NAME = "question";
-    private static final int DB_VERSION = 1;
-
-    private Context context;
-    private File path;
+    private final Context context;
+    private final File path;
     private boolean initialized;
 
-    public DataBaseHelper(Context context) {
-        super(context, DB_NAME, null, DB_VERSION);
+    public AssetsDatabaseHelper(Context context, String databaseName, int databaseVersion) {
+        super(context, databaseName, null, databaseVersion);
         this.context = context;
-        this.path = context.getDatabasePath(DB_NAME);
+        this.path = context.getDatabasePath(databaseName);
     }
 
     @Override
@@ -43,14 +39,14 @@ public class DataBaseHelper extends SQLiteOpenHelper {
                 db = copyDatabaseFromAssets();
                 initialized = true;
             } catch (IOException e) {
-                e.printStackTrace();
+                throw new IllegalStateException(e);
             }
         }
         return db;
     }
 
     private SQLiteDatabase copyDatabaseFromAssets() throws IOException {
-        InputStream input = context.getAssets().open(DB_FILE_NAME);
+        InputStream input = context.getAssets().open(getDatabaseName());
         OutputStream output = new FileOutputStream(path);
 
         byte[] buffer = new byte[1024];
@@ -68,5 +64,9 @@ public class DataBaseHelper extends SQLiteOpenHelper {
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         // do nothing.
+    }
+
+    public interface Process<T> {
+        T process(SQLiteDatabase db);
     }
 }
