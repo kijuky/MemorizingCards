@@ -3,6 +3,7 @@ package kijuky.fmfactory.memorizingcards.utils;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.support.annotation.NonNull;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -15,14 +16,14 @@ public class DatabaseAssetsHelper extends SQLiteOpenHelper {
     private final File path;
     private boolean initialized;
 
-    protected DatabaseAssetsHelper(Context context, String databaseName, int databaseVersion) {
+    protected DatabaseAssetsHelper(final Context context, final String databaseName, final int databaseVersion) {
         super(context, databaseName, null, databaseVersion);
         this.context = context;
         this.path = context.getDatabasePath(databaseName);
     }
 
     @Override
-    public void onCreate(SQLiteDatabase db) {
+    public void onCreate(final SQLiteDatabase db) {
         super.onOpen(db);
     }
 
@@ -34,18 +35,19 @@ public class DatabaseAssetsHelper extends SQLiteOpenHelper {
                 db.close();
                 db = copyDatabaseFromAssets();
                 initialized = true;
-            } catch (IOException e) {
+            } catch (final IOException e) {
                 throw new IllegalStateException(e);
             }
         }
         return db;
     }
 
+    @NonNull
     private SQLiteDatabase copyDatabaseFromAssets() throws IOException {
-        InputStream input = context.getAssets().open(getDatabaseName());
-        OutputStream output = new FileOutputStream(path);
+        final InputStream input = context.getAssets().open(getDatabaseName());
+        final OutputStream output = new FileOutputStream(path);
 
-        byte[] buffer = new byte[1024];
+        final byte[] buffer = new byte[1024];
         int size;
         while ((size = input.read(buffer)) > 0) {
             output.write(buffer, 0, size);
@@ -58,7 +60,7 @@ public class DatabaseAssetsHelper extends SQLiteOpenHelper {
     }
 
     @Override
-    public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+    public void onUpgrade(final SQLiteDatabase db, final int oldVersion, final int newVersion) {
         // do nothing.
     }
 }
