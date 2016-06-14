@@ -4,6 +4,7 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 
 import kijuky.fmfactory.memorizingcards.utils.DatabaseAssetsHelper;
+import kijuky.fmfactory.memorizingcards.utils.DatabaseHandler;
 
 public class QuestionDatabaseHelper extends DatabaseAssetsHelper {
     private static final String DB_FILE_NAME = "question.db";
@@ -13,7 +14,7 @@ public class QuestionDatabaseHelper extends DatabaseAssetsHelper {
         super(context, DB_FILE_NAME, DB_VERSION);
     }
 
-    public static <T> T read(Context context, DatabaseAssetsHelper.Handler<T> handler) {
+    public static <T> T read(Context context, DatabaseHandler<T> handler) {
         T result = null;
         SQLiteDatabase db = new QuestionDatabaseHelper(context).getWritableDatabase();
         try {

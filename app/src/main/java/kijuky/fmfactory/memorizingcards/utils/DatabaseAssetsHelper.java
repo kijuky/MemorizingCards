@@ -61,8 +61,4 @@ public class DatabaseAssetsHelper extends SQLiteOpenHelper {
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         // do nothing.
     }
-
-    public interface Handler<T> {
-        T process(SQLiteDatabase db);
-    }
 }
