@@ -51,7 +51,7 @@ public class CardActivity extends AppCompatActivity {
         return QuestionDatabaseHelper.read(this, new DatabaseHandler<QuestionRecord>() {
             @Override
             public QuestionRecord process(final SQLiteDatabase db) {
-                return QuestionRecord.get(db, id);
+                return QuestionRecord.indexOf(id).from(db);
             }
         });
     }

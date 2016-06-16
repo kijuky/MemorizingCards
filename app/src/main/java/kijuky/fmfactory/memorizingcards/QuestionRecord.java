@@ -37,17 +37,30 @@ public class QuestionRecord {
         answer = c.getInt(11);
     }
 
+    interface Query {
+        QuestionRecord from(SQLiteDatabase db);
+    }
+
     @NonNull
-    public static QuestionRecord get(final SQLiteDatabase db, final int id) {
-        if (id <= 0) {
-            throw new IndexOutOfBoundsException("require: 1 <= id; id = " + id);
+    public static Query indexOf(final int index) {
+        if (index <= 0) {
+            throw new IndexOutOfBoundsException("require: 1 <= index; index = " + index);
         }
 
-        final Cursor c = db.query(TABLE_NAME, null, "id=" + id, null, null, null, null);
-        if (c == null) {
-            throw new NoSuchElementException("id = " + id);
-        }
+        return new Query() {
+            public QuestionRecord from(final SQLiteDatabase db) {
+                final Cursor c = db.query(TABLE_NAME, null, "id=" + index, null, null, null, null);
+                if (c == null) {
+                    throw new NoSuchElementException("id = " + index);
+                }
 
+                return create(c);
+            }
+        };
+    }
+
+    @NonNull
+    private static QuestionRecord create(final Cursor c) {
         QuestionRecord q = null;
         try {
             c.moveToFirst();
