@@ -37,12 +37,12 @@ public class CardActivity extends AppCompatActivity {
             final int id = 2;
             final QuestionRecord record = getQuestionRecord(id);
             questionSettings.setText(record.setting);
-            question.setText(record.q);
-            answer1.setText(record.answer1);
-            answer2.setText(record.answer2);
-            answer3.setText(record.answer3);
-            answer4.setText(record.answer4);
-            answer5.setText(record.answer5);
+            question.setText("問．" + record.q);
+            answer1.setText("１．" + record.answer1);
+            answer2.setText("２．" + record.answer2);
+            answer3.setText("３．" + record.answer3);
+            answer4.setText("４．" + record.answer4);
+            answer5.setText("５．" + record.answer5);
         }
     }
 
