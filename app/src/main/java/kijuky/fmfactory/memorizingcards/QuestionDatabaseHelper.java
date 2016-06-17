@@ -3,7 +3,6 @@ package kijuky.fmfactory.memorizingcards;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 
 import kijuky.fmfactory.memorizingcards.utils.DatabaseAssetsHelper;
 import kijuky.fmfactory.memorizingcards.utils.DatabaseHandler;
@@ -17,6 +16,7 @@ public class QuestionDatabaseHelper extends DatabaseAssetsHelper {
     }
 
     @NonNull
+    @SuppressWarnings("TryFinallyCanBeTryWithResources")
     public static <T> T read(final Context context, final DatabaseHandler<T> handler) {
         T result = null;
         final SQLiteDatabase db = new QuestionDatabaseHelper(context).getWritableDatabase();
