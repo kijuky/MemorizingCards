@@ -1,4 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="activity_animation_duration">300</string>
+
     <string name="app_name">MemorizingCards</string>
     <string name="button_start">はじめる</string>
     <string name="button_card_prev">前の問題</string>

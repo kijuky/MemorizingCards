@@ -19,7 +19,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(final View v) {
                 final Intent intent = new Intent(MainActivity.this, CardActivity.class);
-                intent.putExtra("QUESTION", Integer.valueOf(1));
+                intent.putExtra(CardActivity.EXTRA_QUESTION_ID, Integer.valueOf(1));
                 startActivityForResult(intent, 0);
             }
         });
