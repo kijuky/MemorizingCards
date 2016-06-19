@@ -20,26 +20,16 @@ public class CardActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_card);
 
-        final TextView questionSettings = (TextView)findViewById(R.id.textView_question_setting);
-        final TextView question = (TextView)findViewById(R.id.textView_question);
-        final RadioButton answer1 = (RadioButton)findViewById(R.id.radioButton);
-        final RadioButton answer2 = (RadioButton)findViewById(R.id.radioButton2);
-        final RadioButton answer3 = (RadioButton)findViewById(R.id.radioButton3);
-        final RadioButton answer4 = (RadioButton)findViewById(R.id.radioButton4);
-        final RadioButton answer5 = (RadioButton)findViewById(R.id.radioButton5);
-        final Button answer = (Button)findViewById(R.id.button2);
-        final Button prev = (Button)findViewById(R.id.button);
-        final Button next = (Button)findViewById(R.id.button3);
-        assert questionSettings != null;
-        assert question != null;
-        assert answer1 != null;
-        assert answer2 != null;
-        assert answer3 != null;
-        assert answer4 != null;
-        assert answer5 != null;
-        assert answer != null;
-        assert prev != null;
-        assert next != null;
+        final TextView questionSettings = getViewById(TextView.class, R.id.textView_question_setting);
+        final TextView question = getViewById(TextView.class, R.id.textView_question);
+        final RadioButton answer1 = getViewById(RadioButton.class, R.id.radioButton);
+        final RadioButton answer2 = getViewById(RadioButton.class, R.id.radioButton2);
+        final RadioButton answer3 = getViewById(RadioButton.class, R.id.radioButton3);
+        final RadioButton answer4 = getViewById(RadioButton.class, R.id.radioButton4);
+        final RadioButton answer5 = getViewById(RadioButton.class, R.id.radioButton5);
+        final Button answer = getViewById(Button.class, R.id.button2);
+        final Button prev = getViewById(Button.class, R.id.button);
+        final Button next = getViewById(Button.class, R.id.button3);
 
         final Bundle extras = getIntent().getExtras();
         if (extras != null) {
@@ -77,6 +67,13 @@ public class CardActivity extends AppCompatActivity {
                 }
             });
         }
+    }
+
+    @NonNull
+    private <V extends View> V getViewById(final Class<V> clazz, final int id) {
+        View ret = findViewById(id);
+        assert ret != null;
+        return clazz.cast(ret);
     }
 
     @NonNull
