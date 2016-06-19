@@ -47,25 +47,36 @@ public class CardActivity extends AppCompatActivity {
                 prev.setEnabled(false);
             }
 
-            prev.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(final View v) {
-                    final Intent intent = new Intent(CardActivity.this, CardActivity.class);
-                    intent.putExtra(EXTRA_QUESTION_ID, id - 1);
-                    startActivityForResult(intent, 0);
-                    overridePendingTransition(R.anim.in_left, R.anim.out_right);
-                }
-            });
+            prev.setOnClickListener(new ButtonOnClickListener(ButtonType.PREV, id));
+            next.setOnClickListener(new ButtonOnClickListener(ButtonType.NEXT, id));
+        }
+    }
 
-            next.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(final View v) {
-                    final Intent intent = new Intent(CardActivity.this, CardActivity.class);
-                    intent.putExtra(EXTRA_QUESTION_ID, id + 1);
-                    startActivityForResult(intent, 0);
-                    overridePendingTransition(R.anim.in_right, R.anim.out_left);
-                }
-            });
+    class ButtonOnClickListener implements View.OnClickListener {
+        final ButtonType type;
+        final int id;
+        ButtonOnClickListener(final ButtonType type, final int currId) {
+            this.type = type;
+            id = currId + type.dirId;
+        }
+
+        @Override
+        public void onClick(final View v) {
+            final Intent intent = new Intent(CardActivity.this, CardActivity.class);
+            intent.putExtra(EXTRA_QUESTION_ID, id);
+            startActivityForResult(intent, 0);
+            overridePendingTransition(type.enterAnimId, type.exitAnimId);
+        }
+    }
+
+    enum ButtonType {
+        PREV(-1, R.anim.in_left, R.anim.out_right),
+        NEXT(1, R.anim.in_right, R.anim.out_left);
+        public final int dirId, enterAnimId, exitAnimId;
+        ButtonType(final int dirId, final int enterAnimId, final int exitAnimId) {
+            this.dirId = dirId;
+            this.enterAnimId = enterAnimId;
+            this.exitAnimId = exitAnimId;
         }
     }
 
