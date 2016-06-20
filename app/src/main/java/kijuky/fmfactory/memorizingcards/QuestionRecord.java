@@ -14,12 +14,8 @@ public class QuestionRecord {
     public final int number;
     public final String setting;
     public final String q;
-    public final String answer1;
-    public final String answer2;
-    public final String answer3;
-    public final String answer4;
-    public final String answer5;
-    public final int answer;
+    public final String[] answer = new String[5];
+    public final int answerId;
 
     private QuestionRecord(final Cursor c) {
         id = c.getInt(0);
@@ -28,12 +24,12 @@ public class QuestionRecord {
         number = c.getInt(3);
         setting = c.getString(4);
         q = c.getString(5);
-        answer1 = c.getString(6);
-        answer2 = c.getString(7);
-        answer3 = c.getString(8);
-        answer4 = c.getString(9);
-        answer5 = c.getString(10);
-        answer = c.getInt(11);
+        answer[0] = c.getString(6);
+        answer[1] = c.getString(7);
+        answer[2] = c.getString(8);
+        answer[3] = c.getString(9);
+        answer[4] = c.getString(10);
+        answerId = c.getInt(11) - 1;
     }
 
     interface Query {
