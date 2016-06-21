@@ -55,7 +55,7 @@ public class CardActivity extends AppCompatActivity {
             questionSettings.setText(record.setting);
             question.setText("問．" + record.q);
             for (int i = 0; i < answer.length; i++) {
-                answer[i].setText(i + ". " + record.answer[i]);
+                answer[i].setText((i + 1) + ". " + record.answer[i]);
             }
 
             // enable
