@@ -22,7 +22,7 @@ public class CardActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_card);
 
-        final int answer_id[] = new int[] {
+        final int answerButtonId[] = new int[] {
                 R.id.radioButton,
                 R.id.radioButton2,
                 R.id.radioButton3,
@@ -33,9 +33,9 @@ public class CardActivity extends AppCompatActivity {
         // body
         final TextView questionSettings = getViewById(TextView.class, R.id.textView_question_setting);
         final TextView question = getViewById(TextView.class, R.id.textView_question);
-        final RadioButton answer[] = new RadioButton[answer_id.length];
-        for (int i = 0; i < answer_id.length; i++) {
-            answer[i] = getViewById(RadioButton.class, answer_id[i]);
+        final RadioButton answer[] = new RadioButton[answerButtonId.length];
+        for (int i = 0; i < answerButtonId.length; i++) {
+            answer[i] = getViewById(RadioButton.class, answerButtonId[i]);
         }
 
         // footer
@@ -64,8 +64,8 @@ public class CardActivity extends AppCompatActivity {
             }
 
             // click
-            prev.setOnClickListener(new ButtonOnClickListener(ButtonType.PREV, id));
-            next.setOnClickListener(new ButtonOnClickListener(ButtonType.NEXT, id));
+            prev.setOnClickListener(ButtonType.PREV.createOnClickListener(this, id));
+            next.setOnClickListener(ButtonType.NEXT.createOnClickListener(this, id));
             showAnswer.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(final View v) {
@@ -73,51 +73,45 @@ public class CardActivity extends AppCompatActivity {
                     showAnswer.setEnabled(false);
 
                     // 答えのラジオボタンにボーダーを付ける
-                    answer[record.answerId].setBackgroundResource(R.drawable.answer_border);
+                    final RadioButton answerButton = answer[record.answerId];
+                    answerButton.setBackgroundResource(R.drawable.answer_border);
 
                     // 答えまでスクロールする
                     final ScrollView scrollView = getViewById(ScrollView.class, R.id.scrollView);
-                    scrollView.scrollTo(
-                            (int)answer[record.answerId].getX(),
-                            (int)answer[record.answerId].getY());
+                    scrollView.scrollTo((int)answerButton.getX(), (int)answerButton.getY());
                 }
             });
-        }
-    }
-
-    class ButtonOnClickListener implements View.OnClickListener {
-        final ButtonType type;
-        final int id;
-
-        ButtonOnClickListener(final ButtonType type, final int currId) {
-            this.type = type;
-            id = currId + type.dirId;
-        }
-
-        @Override
-        public void onClick(final View v) {
-            final Intent intent = new Intent(CardActivity.this, CardActivity.class);
-            intent.putExtra(EXTRA_QUESTION_ID, id);
-            startActivityForResult(intent, 0);
-            overridePendingTransition(type.enterAnimId, type.exitAnimId);
         }
     }
 
     enum ButtonType {
         PREV(-1, R.anim.in_left, R.anim.out_right),
         NEXT(1, R.anim.in_right, R.anim.out_left);
-        public final int dirId, enterAnimId, exitAnimId;
 
-        ButtonType(final int dirId, final int enterAnimId, final int exitAnimId) {
-            this.dirId = dirId;
+        public final int step, enterAnimId, exitAnimId;
+        ButtonType(final int step, final int enterAnimId, final int exitAnimId) {
+            this.step = step;
             this.enterAnimId = enterAnimId;
             this.exitAnimId = exitAnimId;
+        }
+
+        @NonNull
+        public View.OnClickListener createOnClickListener(final CardActivity self, final int id) {
+            return new View.OnClickListener() {
+                @Override
+                public void onClick(final View v) {
+                    final Intent intent = new Intent(self, CardActivity.class);
+                    intent.putExtra(EXTRA_QUESTION_ID, id + step);
+                    self.startActivityForResult(intent, 0);
+                    self.overridePendingTransition(enterAnimId, exitAnimId);
+                }
+            };
         }
     }
 
     @NonNull
     private <V extends View> V getViewById(final Class<V> clazz, final int id) {
-        View ret = findViewById(id);
+        final View ret = findViewById(id);
         assert ret != null;
         return clazz.cast(ret);
     }
