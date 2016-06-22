@@ -8,14 +8,14 @@ import java.util.NoSuchElementException;
 
 public class QuestionRecord {
     private static final String TABLE_NAME = "question_t";
-    public final int id;
-    public final int year;
-    public final int month;
-    public final int number;
-    public final String setting;
-    public final String q;
-    public final String[] answer = new String[5];
-    public final int answerId;
+    final int id;
+    final int year;
+    final int month;
+    final int number;
+    final String setting;
+    final String q;
+    final String[] answer = new String[5];
+    final int answerId;
 
     private QuestionRecord(final Cursor c) {
         id = c.getInt(0);
@@ -37,7 +37,7 @@ public class QuestionRecord {
     }
 
     @NonNull
-    public static Query indexOf(final int index) {
+    static Query indexOf(final int index) {
         if (index <= 0) {
             throw new IndexOutOfBoundsException("require: 1 <= index; index = " + index);
         }

@@ -14,7 +14,7 @@ import kijuky.fmfactory.memorizingcards.utils.AbstractActivity;
 import kijuky.fmfactory.memorizingcards.utils.DatabaseHandler;
 
 public class CardActivity extends AbstractActivity {
-    public static final String EXTRA_QUESTION_ID = "QUESTION";
+    static final String EXTRA_QUESTION_ID = "QUESTION";
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
@@ -99,7 +99,7 @@ public class CardActivity extends AbstractActivity {
             return new View.OnClickListener() {
                 @Override
                 public void onClick(final View v) {
-                    final Intent intent = new Intent(self, CardActivity.class);
+                    final Intent intent = self.createIntent(CardActivity.class);
                     intent.putExtra(EXTRA_QUESTION_ID, id + step);
                     self.startActivityForResult(intent, 0);
                     self.overridePendingTransition(enterAnimId, exitAnimId);

@@ -16,15 +16,9 @@ public class QuestionDatabaseHelper extends DatabaseAssetsHelper {
     }
 
     @NonNull
-    @SuppressWarnings("TryFinallyCanBeTryWithResources")
-    public static <T> T read(final Context context, final DatabaseHandler<T> handler) {
-        T result = null;
-        final SQLiteDatabase db = new QuestionDatabaseHelper(context).getWritableDatabase();
-        try {
-            result = handler.process(db);
-        } finally {
-            db.close();
+    static <T> T read(final Context context, final DatabaseHandler<T> handler) {
+        try (final SQLiteDatabase db = new QuestionDatabaseHelper(context).getWritableDatabase()) {
+            return handler.process(db);
         }
-        return result;
     }
 }

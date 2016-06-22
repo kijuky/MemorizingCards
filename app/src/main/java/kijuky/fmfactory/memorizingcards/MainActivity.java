@@ -18,7 +18,7 @@ public class MainActivity extends AbstractActivity {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View v) {
-                final Intent intent = new Intent(MainActivity.this, CardActivity.class);
+                final Intent intent = createIntent(CardActivity.class);
                 intent.putExtra(CardActivity.EXTRA_QUESTION_ID, 1);
                 startActivityForResult(intent, 0);
             }
