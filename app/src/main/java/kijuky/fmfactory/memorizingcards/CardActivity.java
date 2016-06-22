@@ -2,7 +2,6 @@ package kijuky.fmfactory.memorizingcards;
 
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
-import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -31,21 +30,21 @@ public class CardActivity extends AppCompatActivity {
         };
 
         // body
-        final TextView questionSettings = getViewById(TextView.class, R.id.textView_question_setting);
-        final TextView question = getViewById(TextView.class, R.id.textView_question);
+        final TextView questionSettings = getViewById(R.id.textView_question_setting);
+        final TextView question = getViewById(R.id.textView_question);
         final RadioButton answer[] = new RadioButton[answerButtonId.length];
         for (int i = 0; i < answerButtonId.length; i++) {
-            answer[i] = getViewById(RadioButton.class, answerButtonId[i]);
+            answer[i] = getViewById(answerButtonId[i]);
         }
 
         // footer
-        final Button showAnswer = getViewById(Button.class, R.id.button2);
-        final Button prev = getViewById(Button.class, R.id.button);
-        final Button next = getViewById(Button.class, R.id.button3);
+        final Button showAnswer = getViewById(R.id.button2);
+        final Button prev = getViewById(R.id.button);
+        final Button next = getViewById(R.id.button3);
 
+        // intent
         final Bundle extras = getIntent().getExtras();
         if (extras != null) {
-            // intent
             final int id = extras.getInt(EXTRA_QUESTION_ID, 1);
 
             // database
@@ -77,7 +76,7 @@ public class CardActivity extends AppCompatActivity {
                     answerButton.setBackgroundResource(R.drawable.answer_border);
 
                     // 答えまでスクロールする
-                    final ScrollView scrollView = getViewById(ScrollView.class, R.id.scrollView);
+                    final ScrollView scrollView = getViewById(R.id.scrollView);
                     scrollView.scrollTo((int)answerButton.getX(), (int)answerButton.getY());
                 }
             });
@@ -88,7 +87,7 @@ public class CardActivity extends AppCompatActivity {
         PREV(-1, R.anim.in_left, R.anim.out_right),
         NEXT(1, R.anim.in_right, R.anim.out_left);
 
-        public final int step, enterAnimId, exitAnimId;
+        private final int step, enterAnimId, exitAnimId;
         ButtonType(final int step, final int enterAnimId, final int exitAnimId) {
             this.step = step;
             this.enterAnimId = enterAnimId;
@@ -110,10 +109,12 @@ public class CardActivity extends AppCompatActivity {
     }
 
     @NonNull
-    private <V extends View> V getViewById(final Class<V> clazz, final int id) {
-        final View ret = findViewById(id);
-        assert ret != null;
-        return clazz.cast(ret);
+    private <V extends View> V getViewById(final int id) {
+        final View view = findViewById(id);
+        @SuppressWarnings("unchecked")
+        final V v = (V)view;
+        assert v != null;
+        return v;
     }
 
     @NonNull

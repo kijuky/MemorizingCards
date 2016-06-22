@@ -13,7 +13,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        final Button button = getViewById(Button.class, R.id.button_start);
+        final Button button = getViewById(R.id.button_start);
 
         button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -26,9 +26,11 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @NonNull
-    private <V extends View> V getViewById(final Class<V> clazz, final int id) {
-        View ret = findViewById(id);
-        assert ret != null;
-        return clazz.cast(ret);
+    private <V extends View> V getViewById(final int id) {
+        final View view = findViewById(id);
+        @SuppressWarnings("unchecked")
+        final V v = (V)view;
+        assert v != null;
+        return v;
     }
 }
