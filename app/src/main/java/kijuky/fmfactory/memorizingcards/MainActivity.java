@@ -1,13 +1,13 @@
 package kijuky.fmfactory.memorizingcards;
 
 import android.content.Intent;
-import android.support.annotation.NonNull;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
-public class MainActivity extends AppCompatActivity {
+import kijuky.fmfactory.memorizingcards.utils.AbstractActivity;
+
+public class MainActivity extends AbstractActivity {
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -23,14 +23,5 @@ public class MainActivity extends AppCompatActivity {
                 startActivityForResult(intent, 0);
             }
         });
-    }
-
-    @NonNull
-    private <V extends View> V getViewById(final int id) {
-        final View view = findViewById(id);
-        @SuppressWarnings("unchecked")
-        final V v = (V)view;
-        assert v != null;
-        return v;
     }
 }
