@@ -44,25 +44,11 @@ public class QuestionRecord {
 
         return new Query() {
             public QuestionRecord from(final SQLiteDatabase db) {
-                final Cursor c = db.query(TABLE_NAME, null, "id=" + index, null, null, null, null);
-                if (c == null) {
-                    throw new NoSuchElementException("id = " + index);
+                try (final Cursor c = db.query(TABLE_NAME, null, "id=" + index, null, null, null, null)) {
+                    c.moveToFirst();
+                    return new QuestionRecord(c);
                 }
-
-                return create(c);
             }
         };
-    }
-
-    @NonNull
-    private static QuestionRecord create(final Cursor c) {
-        QuestionRecord q = null;
-        try {
-            c.moveToFirst();
-            q = new QuestionRecord(c);
-        } finally {
-            c.close();
-        }
-        return q;
     }
 }
