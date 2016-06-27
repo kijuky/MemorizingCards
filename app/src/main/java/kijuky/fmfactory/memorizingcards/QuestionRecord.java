@@ -4,8 +4,6 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.support.annotation.NonNull;
 
-import java.util.NoSuchElementException;
-
 public class QuestionRecord {
     private static final String TABLE_NAME = "question_t";
     final int id;
